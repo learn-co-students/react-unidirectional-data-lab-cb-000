@@ -9,26 +9,50 @@ import fileStore from '../stores/fileStore';
 import actions from '../actions';
 
 export default class App extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      files: fileStore.getState(),
+      selectedFileIndex: 0
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
+  }
+
   componentDidMount() {
-    // TODO
+    // TODO register listener
+    this.removeListener = fileStore.addListener((files) => {
+      this.setState({ files });
+    });
   }
   componentWillUnmount() {
-    // TODO
+    // TODO remove listener
+    this.removeListener();
   }
   handleChange(ev) {
     const { selectedFileIndex } = this.state;
     // TODO Dispatch action
+    action.updateFile(selectedFileIndex, ev.target.value);
   }
   handleSelect(selectedFileIndex) {
     // TODO Update selectedFileIndex state
+    this.setState({ selectedFileIndex });
   }
   handleAdd(ev) {
     ev.preventDefault();
     // TODO Dispatch action
+    actions.addFile();
   }
   handleRemove(ev) {
     ev.preventDefault()
     // TODO Dispatch action
+    const { selectedFileIndex } = this.state;
+    action.removeFile(selectedFileIndex);
+    this.setState({ selectedFileIndex: 0 });
   }
   render() {
     const { files, selectedFileIndex } = this.state;
