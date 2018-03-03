@@ -15,8 +15,10 @@ export default class App extends React.Component {
       files: fileStore.getState(),
       selectedFileIndex: 0
     }
+    this.handleAdd = this.handleAdd.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
   componentDidMount() {
     this.removeListener = fileStore.addListener(state => {
@@ -38,10 +40,14 @@ export default class App extends React.Component {
   handleAdd(ev) {
     ev.preventDefault();
     actions.addFile();
+    const newIndex = this.state.files.length;
+    this.handleSelect(newIndex);
   }
   handleRemove(ev) {
     ev.preventDefault()
-    actions.removeFile();
+    actions.removeFile(this.state.selectedFileIndex);
+    const newIndex = this.state.selectedFileIndex - 1;
+    this.handleSelect(newIndex);
   }
   render() {
     const { files, selectedFileIndex } = this.state;
