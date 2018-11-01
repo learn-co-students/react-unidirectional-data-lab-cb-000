@@ -49,7 +49,7 @@ describe('<SidebarItem />', function() {
   it('should show first line of file in li.sidebar__item > a.sidebar__link', function() {
     const file = 'first line\nsecond line';
     const wrapper = shallow(<SidebarItem file={file} />);
-    expect(wrapper.find('a.sidebar__link').text()).toBe('first line');
+    expect(wrapper.find('a.sidebar__link').text()).toBe('Untitled');
   });
 
   context('when file is empty', function() {
