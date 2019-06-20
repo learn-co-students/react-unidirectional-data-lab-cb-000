@@ -3,15 +3,19 @@
 import React from 'react';
 import SidebarItem from './SidebarItem';
 
-export default class Sidebar extends React.Component {
-  handleClick(index, ev) {
-  }
-  render() {
-    const { files, selectedFileIndex, onAdd } = this.props;
+const Sidebar = ({ files, selectedFileIndex, onSelect }) => (
+  <ul className="sidebar">
+    {
+      files.map((file, i) => (
+        <SidebarItem
+          isSelected={selectedFileIndex === i}
+          key={i}
+          file={file}
+          onClick={(ev, index=i) => { ev.preventDefault(); onSelect(i) }}
+        />
+      ))
+    }
+  </ul>
+);
 
-    return (
-      <ul className="sidebar">
-      </ul>
-    );
-  }
-}
+export default Sidebar;
