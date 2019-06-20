@@ -49,7 +49,7 @@ describe('<Sidebar />', function() {
         preventDefault: sinon.spy(),
       };
       onClick(ev);
-      sinon.assert.calledOnce(ev.preventDefault);
+      sinon.assert.calledOnce(ev.preventDefault); //I didn't use a class, function(with preventDefault) is passed into anon funtion from App
       sinon.assert.calledOnce(onSelect);
       sinon.assert.calledWith(onSelect, 0);
     });
